@@ -31,7 +31,9 @@ public class UserServiceImpl implements UserService , UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        System.out.println("loadUserByUsername "+email);
         User user = userRepository.findByEmail(email);
+        System.out.println("loadUserByUsername "+email);
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), getAuthority(user));
     }
 
@@ -88,6 +90,7 @@ public class UserServiceImpl implements UserService , UserDetailsService {
             return VarList.Created;
         }
     }
+
 
 
 }
