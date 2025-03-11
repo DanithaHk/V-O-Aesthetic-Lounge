@@ -10,30 +10,52 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "booking_id", nullable = false)
-    private Booking booking;
+    @Column(nullable = false)
+    private Long userId;
 
+    @Column(nullable = false)
+    private String transactionId;
+
+    @Column(nullable = false)
     private double amount;
 
-    @Enumerated(EnumType.STRING)
-    private PaymentMethod method; // CREDIT_CARD, PAYPAL, BANK_TRANSFER
+    @Column(nullable = false)
+    private String paymentMethod; // "Stripe", "PayPal", "Credit Card"
 
-    private LocalDateTime paymentDate;
+    @Column(nullable = false)
+    private String paymentType; // "BOOKING" or "PRODUCT"
 
-    enum PaymentMethod {
-        CREDIT_CARD, CASH
+    @Column(nullable = true)
+    private Long bookingId; // Nullable - Only for Booking Payments
+
+    @Column(nullable = true)
+    private Long productId; // Nullable - Only for Product Payments
+
+    @Column(nullable = false)
+    private String status; // "PENDING", "SUCCESS", "FAILED"
+
+    @Column(nullable = false)
+    private String createdAt;
+    public enum PaymentStatus {
+        PENDING,
+        SUCCESS,
+        FAILED
     }
 
     public Payment() {
     }
 
-    public Payment(Long id, Booking booking, double amount, PaymentMethod method, LocalDateTime paymentDate) {
+    public Payment(Long id, Long userId, String transactionId, double amount, String paymentMethod, String paymentType, Long bookingId, Long productId, String status, String createdAt) {
         this.id = id;
-        this.booking = booking;
+        this.userId = userId;
+        this.transactionId = transactionId;
         this.amount = amount;
-        this.method = method;
-        this.paymentDate = paymentDate;
+        this.paymentMethod = paymentMethod;
+        this.paymentType = paymentType;
+        this.bookingId = bookingId;
+        this.productId = productId;
+        this.status = status;
+        this.createdAt = createdAt;
     }
 
     public Long getId() {
@@ -44,12 +66,20 @@ public class Payment {
         this.id = id;
     }
 
-    public Booking getBooking() {
-        return booking;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setBooking(Booking booking) {
-        this.booking = booking;
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
     }
 
     public double getAmount() {
@@ -60,19 +90,51 @@ public class Payment {
         this.amount = amount;
     }
 
-    public PaymentMethod getMethod() {
-        return method;
+    public String getPaymentMethod() {
+        return paymentMethod;
     }
 
-    public void setMethod(PaymentMethod method) {
-        this.method = method;
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 
-    public LocalDateTime getPaymentDate() {
-        return paymentDate;
+    public String getPaymentType() {
+        return paymentType;
     }
 
-    public void setPaymentDate(LocalDateTime paymentDate) {
-        this.paymentDate = paymentDate;
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType;
+    }
+
+    public Long getBookingId() {
+        return bookingId;
+    }
+
+    public void setBookingId(Long bookingId) {
+        this.bookingId = bookingId;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 }

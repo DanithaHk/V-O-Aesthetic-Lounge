@@ -1,46 +1,26 @@
-package lk.ijse.voaestheticlounge.entity;
+package lk.ijse.voaestheticlounge.dto;
 
-import jakarta.persistence.*;
+import lk.ijse.voaestheticlounge.entity.Payment;
+import lk.ijse.voaestheticlounge.entity.Service;
+import lk.ijse.voaestheticlounge.entity.User;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "bookings")
-public class Booking {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class BookingDTO {
     private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "service_id", nullable = false)
     private Service service;
-
-    @Column(nullable = false)
     private LocalDateTime appointmentDate;
-
-    @Enumerated(EnumType.STRING)
-    private BookingStatus status; // PENDING, CONFIRMED, CANCELLED
-
-    @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL)
     private Payment payment;
 
-    public enum BookingStatus {
-        PENDING, CONFIRMED, CANCELLED
+    public BookingDTO() {
     }
 
-    public Booking() {
-    }
-
-    public Booking(Long id, User user, Service service, LocalDateTime appointmentDate, BookingStatus status, Payment payment) {
+    public BookingDTO(Long id, User user, Service service, LocalDateTime appointmentDate, Payment payment) {
         this.id = id;
         this.user = user;
         this.service = service;
         this.appointmentDate = appointmentDate;
-        this.status = status;
         this.payment = payment;
     }
 
@@ -51,6 +31,7 @@ public class Booking {
     public void setId(Long id) {
         this.id = id;
     }
+
 
     public User getUser() {
         return user;
@@ -76,19 +57,11 @@ public class Booking {
         this.appointmentDate = appointmentDate;
     }
 
-    public BookingStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(BookingStatus status) {
-        this.status = status;
-    }
-
-    public Payment getPayment() {
+    public String getPayment() {
         return payment;
     }
 
-    public void setPayment(String payment) {
+    public void setPayment(Payment payment) {
         this.payment = payment;
     }
 }

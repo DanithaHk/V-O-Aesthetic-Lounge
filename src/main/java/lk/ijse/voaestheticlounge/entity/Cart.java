@@ -7,66 +7,80 @@ import jakarta.persistence.*;
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long cartId;
+
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
+
+    @Column(name = "product_id", nullable = false)
+    private Long productId;
 
     @Column(nullable = false)
-    private String name;
+    private int quantity;
 
-    @Column(nullable = false)
-    private String location;
+    @Column(length = 255) // Limiting image URL size
+    private String image;
 
-    private String phone;
-
-    private String email;
+    @Column(name = "product_name", nullable = false, length = 100)
+    private String productName;
 
     public Cart() {
     }
 
-    public Cart(Long id, String name, String location, String phone, String email) {
-        this.id = id;
-        this.name = name;
-        this.location = location;
-        this.phone = phone;
-        this.email = email;
+    public Cart(String productName, String image, int quantity, Long productId, Long userId, Long cartId) {
+        this.productName = productName;
+        this.image = image;
+        this.quantity = quantity;
+        this.productId = productId;
+        this.userId = userId;
+        this.cartId = cartId;
     }
 
-    public Long getId() {
-        return id;
+    public Long getCartId() {
+        return cartId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCartId(Long cartId) {
+        this.cartId = cartId;
     }
 
-    public String getName() {
-        return name;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public String getLocation() {
-        return location;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
-    public String getPhone() {
-        return phone;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
-    public String getEmail() {
-        return email;
+    public String getImage() {
+        return image;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 }
