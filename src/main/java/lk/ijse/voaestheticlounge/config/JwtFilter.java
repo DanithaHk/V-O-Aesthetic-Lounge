@@ -7,7 +7,6 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import lk.ijse.voaestheticlounge.service.impl.UserServiceImpl;
 import lk.ijse.voaestheticlounge.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;

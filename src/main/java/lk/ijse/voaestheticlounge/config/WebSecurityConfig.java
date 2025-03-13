@@ -1,7 +1,6 @@
 package lk.ijse.voaestheticlounge.config;
 
 import lk.ijse.voaestheticlounge.service.impl.UserServiceImpl;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 
 @EnableWebSecurity
 @Configuration
@@ -49,15 +49,28 @@ public class WebSecurityConfig {
                                 "/api/v1/user/register",
                                 "/api/v1/auth/refreshToken",
                                 "/api/v1/user/delete/{id}",
-                                "/api/v1/user/update/{id}",
-                                "/api/v1/hotel/save",
-                                "/api/v1/hotel/delete/{id}",
-                                "/api/v1/hotel/update/{id}",
-                                "/api/v1/hotel/getAll",
-                                "/api/v1/room/save",
-                                "/api/v1/room/delete/{id}",
-                                "/api/v1/room/update/{id}",
-                                "/api/v1/room/getAll",
+                                "/api/v1/user/update/{id}" +
+                                "/api/v1/user/getAll",
+                                "/api/v1/booking",
+                                "/api/v1/booking/save",
+                                "/api/v1/booking/update/{id}",
+                                "/api/v1/booking/delete/{id}",
+                                "/api/v1/booking/getAll",
+
+                                "api/v1/service/save",
+                                "api/v1/service/delete/{id}",
+                                "api/v1/service/update/{id}",
+                                "api/v1/service/getAll",
+                                "api/v1/product",
+                                "api/v1/product/save",
+                                "api/v1/product/delete/{id}",
+                                "api/v1/product/update/{id}",
+                                "api/v1/product/getAll",
+                                "api/v1//cart",
+                                "api/v1//cart/save",
+                                "api/v1//cart/getAll",
+                                "api/v1//cart/delete/{id}",
+                                "api/v1//cart/update/{id}",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html").permitAll()
