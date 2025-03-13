@@ -1,32 +1,24 @@
 package lk.ijse.voaestheticlounge.dto;
 
-import jakarta.persistence.Column;
-import lk.ijse.voaestheticlounge.entity.Booking;
 
 import java.time.LocalDateTime;
 
 public class PaymentDTO {
     private Long id;
-    private Long userId;
-    private double amount;
-    private String paymentMethod;
-    private String paymentType;
     private Long bookingId;
-    private Long productId;
-    private String status;
+    private double amount;
+    private String method; // CREDIT_CARD, PAYPAL, BANK_TRANSFER
+    private LocalDateTime paymentDate;
 
-    public PaymentDTO() {
+    public PaymentDTO(String method, Long id, Long bookingId, double amount, LocalDateTime paymentDate) {
+        this.method = method;
+        this.id = id;
+        this.bookingId = bookingId;
+        this.amount = amount;
+        this.paymentDate = paymentDate;
     }
 
-    public PaymentDTO(Long id, Long userId, double amount, String paymentMethod, String paymentType, Long bookingId, Long productId, String status) {
-        this.id = id;
-        this.userId = userId;
-        this.amount = amount;
-        this.paymentMethod = paymentMethod;
-        this.paymentType = paymentType;
-        this.bookingId = bookingId;
-        this.productId = productId;
-        this.status = status;
+    public PaymentDTO() {
     }
 
     public Long getId() {
@@ -37,12 +29,12 @@ public class PaymentDTO {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getBookingId() {
+        return bookingId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setBookingId(Long bookingId) {
+        this.bookingId = bookingId;
     }
 
     public double getAmount() {
@@ -53,43 +45,30 @@ public class PaymentDTO {
         this.amount = amount;
     }
 
-    public String getPaymentMethod() {
-        return paymentMethod;
+    public String getMethod() {
+        return method;
     }
 
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
+    public void setMethod(String method) {
+        this.method = method;
     }
 
-    public String getPaymentType() {
-        return paymentType;
+    public LocalDateTime getPaymentDate() {
+        return paymentDate;
     }
 
-    public void setPaymentType(String paymentType) {
-        this.paymentType = paymentType;
+    public void setPaymentDate(LocalDateTime paymentDate) {
+        this.paymentDate = paymentDate;
     }
 
-    public Long getBookingId() {
-        return bookingId;
-    }
-
-    public void setBookingId(Long bookingId) {
-        this.bookingId = bookingId;
-    }
-
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    @Override
+    public String toString() {
+        return "PaymentDTO{" +
+                "id=" + id +
+                ", bookingId=" + bookingId +
+                ", amount=" + amount +
+                ", method='" + method + '\'' +
+                ", paymentDate=" + paymentDate +
+                '}';
     }
 }

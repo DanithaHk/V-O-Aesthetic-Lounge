@@ -17,8 +17,8 @@ public class Reminder {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "booking_id", nullable = false)
-    private Booking booking;
+    @JoinColumn(name = "Appoiments_id", nullable = false)
+    private Bookings Appoiment;
 
     @Column(nullable = false)
     private LocalDateTime reminderDate;
@@ -34,10 +34,10 @@ public class Reminder {
     public Reminder() {
     }
 
-    public Reminder(Long id, User user, Booking booking, LocalDateTime reminderDate, ReminderStatus status) {
+    public Reminder(Long id, User user, Bookings appoiment, LocalDateTime reminderDate, ReminderStatus status) {
         this.id = id;
         this.user = user;
-        this.booking = booking;
+        Appoiment = appoiment;
         this.reminderDate = reminderDate;
         this.status = status;
     }
@@ -58,12 +58,12 @@ public class Reminder {
         this.user = user;
     }
 
-    public Booking getBooking() {
-        return booking;
+    public Bookings getAppoiment() {
+        return Appoiment;
     }
 
-    public void setBooking(Booking booking) {
-        this.booking = booking;
+    public void setAppoiment(Bookings appoiment) {
+        Appoiment = appoiment;
     }
 
     public LocalDateTime getReminderDate() {

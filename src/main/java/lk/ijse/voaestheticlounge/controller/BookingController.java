@@ -1,7 +1,7 @@
 package lk.ijse.voaestheticlounge.controller;
 
 import jakarta.validation.Valid;
-import lk.ijse.voaestheticlounge.dto.BookingDTO;
+import lk.ijse.voaestheticlounge.dto.AppoimentDTO;
 import lk.ijse.voaestheticlounge.dto.ResponseDTO;
 import lk.ijse.voaestheticlounge.service.BookingService;
 import lk.ijse.voaestheticlounge.service.impl.BookingServiceImpl;
@@ -26,7 +26,7 @@ public class BookingController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<ResponseDTO> saveBooking(@RequestBody @Valid BookingDTO bookingDTO) {
+    public ResponseEntity<ResponseDTO> saveBooking(@RequestBody @Valid AppoimentDTO bookingDTO) {
         bookingServiceImpl.save(bookingDTO);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new ResponseDTO(VarList.OK, "Booking Saved Successfully", null));
@@ -38,12 +38,12 @@ public class BookingController {
                 .body(new ResponseDTO(VarList.OK, "Success", null));
     }
     @PutMapping("/update/{id}")
-    public ResponseEntity<ResponseDTO> updateBooking(@PathVariable Long id, @RequestBody @Valid BookingDTO bookingDTO) {
+    public ResponseEntity<ResponseDTO> updateBooking(@PathVariable Long id, @RequestBody @Valid AppoimentDTO bookingDTO) {
         bookingServiceImpl.update(id,bookingDTO);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new ResponseDTO(VarList.OK, "Booking Updated Successfully", null));
     }
-    @GetMapping("getAll")
+    @GetMapping("/getAll")
     public ResponseEntity<ResponseDTO> getAllBookings() {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new ResponseDTO(VarList.OK, "Success", bookingService.getAll()));

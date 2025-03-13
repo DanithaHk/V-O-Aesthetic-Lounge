@@ -14,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("api/v1/user")
 public class UserController {
@@ -74,5 +74,9 @@ public class UserController {
         return ResponseEntity.ok("User role updated successfully");
     }
 
-
+    @GetMapping("/getAll")
+    public ResponseEntity<ResponseDTO> getAllUsers() {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new ResponseDTO(VarList.OK, "Success", userService.getAll()));
+    }
 }

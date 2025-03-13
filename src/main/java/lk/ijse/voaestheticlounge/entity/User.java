@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 
 public class User {
     @Id
@@ -25,12 +25,12 @@ public class User {
     private String role; // ADMIN, CUSTOMER
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Booking> bookings;
+    private List<Bookings> bookings;
 
     public User() {
     }
 
-    public User(Long id, String username, String password, String email, String role, List<Booking> bookings) {
+    public User(Long id, String username, String password, String email, String role, List<Bookings> bookings) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -79,11 +79,11 @@ public class User {
         this.role = role;
     }
 
-    public List<Booking> getBookings() {
+    public List<Bookings> getBookings() {
         return bookings;
     }
 
-    public void setBookings(List<Booking> bookings) {
+    public void setBookings(List<Bookings> bookings) {
         this.bookings = bookings;
     }
 }

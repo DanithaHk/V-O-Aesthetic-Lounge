@@ -34,30 +34,32 @@ public class PaymentServiceImpl implements PaymentService {
     ProductRepository productRepository;
     @Override
     public void processPayment(PaymentDTO paymentDTO) {
-        String transactionId = UUID.randomUUID().toString();
+//        String transactionId = UUID.randomUUID().toString();
+//
+//        Payment payment = new Payment();
+//        payment.setUserId(userRepository.findById(String.valueOf(paymentDTO.getUserId())).orElseThrow(() -> new RuntimeException("User not found")).getId());
+//        payment.setTransactionId(transactionId);
+//        payment.setAmount(paymentDTO.getAmount());
+//        payment.setPaymentMethod(paymentDTO.getPaymentMethod());
+//        payment.setPaymentType(paymentDTO.getPaymentType());
+//        payment.setBooking(paymentDTO.getBookingId() != null ? bookingRepository.findById(paymentDTO.getBookingId()).orElse(null) : null);
+//
+//        payment.setProductId(paymentDTO.getProductId() != null ? productRepository.findById(paymentDTO.getProductId()).orElse(null).getId() : null);
+//        payment.setStatus(String.valueOf(Payment.PaymentStatus.PENDING)); // Enum Usage
+//        payment.setCreatedAt(String.valueOf(LocalDateTime.now()));
 
-        Payment payment = new Payment();
-        payment.setUserId(userRepository.findById(String.valueOf(paymentDTO.getUserId())).orElseThrow(() -> new RuntimeException("User not found")).getId());
-        payment.setTransactionId(transactionId);
-        payment.setAmount(paymentDTO.getAmount());
-        payment.setPaymentMethod(paymentDTO.getPaymentMethod());
-        payment.setPaymentType(paymentDTO.getPaymentType());
-        payment.setBookingId(paymentDTO.getBookingId() != null ? bookingRepository.findById(paymentDTO.getBookingId()).orElse(null).getId() : null);
-        payment.setProductId(paymentDTO.getProductId() != null ? productRepository.findById(paymentDTO.getProductId()).orElse(null).getId() : null);
-        payment.setStatus(String.valueOf(Payment.PaymentStatus.PENDING)); // Enum Usage
-        payment.setCreatedAt(String.valueOf(LocalDateTime.now()));
-
-      paymentRepository.save(payment);
+        paymentRepository.save(modelMapper.map(paymentDTO, Payment.class));
     }
 
-    @Override
+    /*@Override
     public Payment updatePaymentStatus(Long paymentId, Payment.PaymentStatus status) {
-        Payment payment = paymentRepository.findById(paymentId)
+        *//*Payment payment = paymentRepository.findById(paymentId)
                 .orElseThrow(() -> new RuntimeException("Payment not found"));
 
         payment.setStatus(String.valueOf(status)); // Enum usage
-        return paymentRepository.save(payment);
-    }
+        return paymentRepository.save(payment);*//*
+    }*/
+
 
     @Override
     public Payment getPaymentById(Long paymentId) {

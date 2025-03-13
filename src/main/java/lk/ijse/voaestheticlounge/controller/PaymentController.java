@@ -28,11 +28,11 @@ public class PaymentController {
     }
 
     // ✅ 2️⃣ Update Payment Status (SUCCESS, FAILED, PENDING)
-    @PutMapping("/{paymentId}/status")
+    /*@PutMapping("/{paymentId}/status")
     public ResponseEntity<Payment> updatePaymentStatus(@PathVariable Long paymentId, @RequestParam Payment.PaymentStatus status) {
         Payment updatedPayment = paymentService.updatePaymentStatus(paymentId, status);
         return ResponseEntity.ok(updatedPayment);
-    }
+    }*/
     @GetMapping("/{paymentId}")
     public ResponseEntity<Payment> getPaymentById(@PathVariable Long paymentId) {
         Payment payment = paymentService.getPaymentById(paymentId);

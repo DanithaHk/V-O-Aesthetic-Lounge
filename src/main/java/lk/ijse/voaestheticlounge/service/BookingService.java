@@ -1,15 +1,15 @@
 package lk.ijse.voaestheticlounge.service;
 
-import lk.ijse.voaestheticlounge.dto.BookingDTO;
+import lk.ijse.voaestheticlounge.dto.AppoimentDTO;
 
 import java.util.List;
 
 public interface BookingService {
-    void save(BookingDTO bookingDTO);
+    void save(AppoimentDTO bookingDTO);
 
     void delete(Long id);
 
-    void update(Long id, BookingDTO bookingDTO);
+    void update(Long id, AppoimentDTO bookingDTO);
 
-    List<BookingDTO> getAll();
+    List<AppoimentDTO> getAll();
 }

@@ -8,7 +8,9 @@ import java.util.List;
 
 public interface PaymentService {
     void processPayment(PaymentDTO paymentDTO);
+/*
     Payment updatePaymentStatus(Long paymentId, Payment.PaymentStatus status);
+*/
     Payment getPaymentById(Long paymentId);
     List<Payment> getAllPayments();
 }

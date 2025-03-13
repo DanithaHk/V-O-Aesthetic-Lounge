@@ -3,6 +3,7 @@ package lk.ijse.voaestheticlounge.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "payments")
 public class Payment {
@@ -10,76 +11,30 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Long userId;
+    @OneToOne
+    @JoinColumn(name = "booking_id", nullable = false)
+    private Bookings booking;
 
-    @Column(nullable = false)
-    private String transactionId;
-
-    @Column(nullable = false)
     private double amount;
 
-    @Column(nullable = false)
-    private String paymentMethod; // "Stripe", "PayPal", "Credit Card"
+    @Enumerated(EnumType.STRING)
+    private PaymentMethod method; // CREDIT_CARD, PAYPAL, BANK_TRANSFER
 
-    @Column(nullable = false)
-    private String paymentType; // "BOOKING" or "PRODUCT"
+    private LocalDateTime paymentDate;
 
-    @Column(nullable = true)
-    private Long bookingId; // Nullable - Only for Booking Payments
+    public enum PaymentMethod {
+        CREDIT_CARD, PAYPAL, BANK_TRANSFER
+    }
 
-    @Column(nullable = true)
-    private Long productId; // Nullable - Only for Product Payments
-
-    @Column(nullable = false)
-    private String status; // "PENDING", "SUCCESS", "FAILED"
-
-    @Column(nullable = false)
-    private String createdAt;
-    public enum PaymentStatus {
-        PENDING,
-        SUCCESS,
-        FAILED
+    public Payment(Long id, Bookings booking, double amount, PaymentMethod method, LocalDateTime paymentDate) {
+        this.id = id;
+        this.booking = booking;
+        this.amount = amount;
+        this.method = method;
+        this.paymentDate = paymentDate;
     }
 
     public Payment() {
-    }
-
-    public Payment(Long id, Long userId, String transactionId, double amount, String paymentMethod, String paymentType, Long bookingId, Long productId, String status, String createdAt) {
-        this.id = id;
-        this.userId = userId;
-        this.transactionId = transactionId;
-        this.amount = amount;
-        this.paymentMethod = paymentMethod;
-        this.paymentType = paymentType;
-        this.bookingId = bookingId;
-        this.productId = productId;
-        this.status = status;
-        this.createdAt = createdAt;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public String getTransactionId() {
-        return transactionId;
-    }
-
-    public void setTransactionId(String transactionId) {
-        this.transactionId = transactionId;
     }
 
     public double getAmount() {
@@ -90,51 +45,46 @@ public class Payment {
         this.amount = amount;
     }
 
-    public String getPaymentMethod() {
-        return paymentMethod;
+    public PaymentMethod getMethod() {
+        return method;
     }
 
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
+    public void setMethod(PaymentMethod method) {
+        this.method = method;
     }
 
-    public String getPaymentType() {
-        return paymentType;
+    public LocalDateTime getPaymentDate() {
+        return paymentDate;
     }
 
-    public void setPaymentType(String paymentType) {
-        this.paymentType = paymentType;
+    public void setPaymentDate(LocalDateTime paymentDate) {
+        this.paymentDate = paymentDate;
     }
 
-    public Long getBookingId() {
-        return bookingId;
+    public Bookings getAppoiment() {
+        return booking;
     }
 
-    public void setBookingId(Long bookingId) {
-        this.bookingId = bookingId;
+    public void setAppoiment(Bookings booking) {
+        this.booking = booking;
     }
 
-    public Long getProductId() {
-        return productId;
+    public Long getId() {
+        return id;
     }
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
+    @Override
+    public String toString() {
+        return "Payment{" +
+                "id=" + id +
+                ", booking=" + booking +
+                ", amount=" + amount +
+                ", method=" + method +
+                ", paymentDate=" + paymentDate +
+                '}';
     }
 }
