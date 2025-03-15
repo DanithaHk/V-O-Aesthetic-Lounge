@@ -8,7 +8,7 @@ public interface UserService {
     int saveUser(UserDTO userDTO);
     UserDTO searchUser(String username);
     void deleteUser(Long id);
-    void updateUserRole(Long id, String newRole);
+    void updateUserRole(String email, String newRole);
     List<UserDTO> getAll();
 
 }

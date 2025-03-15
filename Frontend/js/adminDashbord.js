@@ -12,7 +12,11 @@ function getUsers() {
             let table = $('#userTable');
             table.empty();
             customers.forEach((customer) => {
+                console.log(customer.username);
+                console.log(customer.email);
+                console.log(customer.role);
                 table.append(`
+                
                     <tr>
                         <td>${customer.username}</td>
                         <td>${customer.email}</td>

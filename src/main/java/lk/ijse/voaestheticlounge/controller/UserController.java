@@ -30,31 +30,26 @@ public class UserController {
     }
     @PostMapping(value = "/register")
     public ResponseEntity<ResponseDTO> registerUser(@Valid @RequestBody UserDTO userDTO) {
-        try {
-            int res = userService.saveUser(userDTO);
-            System.out.println(userDTO.getEmail());
-            switch (res) {
-                case VarList.Created -> {
+            try {
+                int res = userService.saveUser(userDTO);
+                AuthDTO authDTO = null;
+
+                if (res == VarList.Created) {
                     String token = jwtUtil.generateToken(userDTO);
-                    AuthDTO authDTO = new AuthDTO();
-                    authDTO.setEmail(userDTO.getEmail());
-                    authDTO.setToken(token);
+                    authDTO = new AuthDTO(userDTO.getEmail(), token);
                     return ResponseEntity.status(HttpStatus.CREATED)
                             .body(new ResponseDTO(VarList.Created, "Success", authDTO));
-                }
-                case VarList.Not_Acceptable -> {
+                } else if (res == VarList.Not_Acceptable) {
                     return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
                             .body(new ResponseDTO(VarList.Not_Acceptable, "Email Already Used", null));
-                }
-                default -> {
+                } else {
                     return ResponseEntity.status(HttpStatus.BAD_GATEWAY)
                             .body(new ResponseDTO(VarList.Bad_Gateway, "Error", null));
                 }
+            } catch (Exception e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body(new ResponseDTO(VarList.Internal_Server_Error, e.getMessage(), null));
             }
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ResponseDTO(VarList.Internal_Server_Error, e.getMessage(), null));
-        }
     }
     @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity <ResponseDTO> deleteUser(@PathVariable Long id) {
@@ -62,16 +57,17 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new ResponseDTO(VarList.OK, "Success", null));
     }
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateUserRole(@PathVariable Long id, @RequestBody Map<String, String> request) {
+    @PutMapping("/update/{email}")
+    public ResponseEntity<?> updateUserRole(@PathVariable String email, @RequestBody Map<String, String> request) {
         String newRole = request.get("role");
-
+        System.out.println(newRole);
         if (newRole == null || newRole.isEmpty()) {
             return ResponseEntity.badRequest().body("Role cannot be empty");
         }
 
-        userService.updateUserRole(id, newRole);
-        return ResponseEntity.ok("User role updated successfully");
+        userService.updateUserRole(email, newRole);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new ResponseDTO(VarList.OK, "User role updated successfully", null));
     }
 
     @GetMapping("/getAll")

@@ -70,12 +70,12 @@ public class UserServiceImpl implements UserService , UserDetailsService {
     }
 
     @Override
-    public void updateUserRole(Long id, String newRole) {
-        User user = userRepository.findById(String.valueOf(id))
-                .orElseThrow(() -> new EntityNotFoundException("User with ID " + id + " not found"));
+    public void updateUserRole(String email, String newRole) {
+        User user = userRepository.findByEmail(String.valueOf(email));
 
-        user.setRole(newRole);
+        user.setRole(newRole); // Update only the role
         userRepository.save(user);
+
     }
 
     @Override
